@@ -7,28 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="496366bf-c5bc-4fae-8911-10777ce2bbf7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_ecs_4_11_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20170516.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/carSale_util/src/main/java/com/hzit/util/SendMsg.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/aliyun-java-sdk-core-3.2.3.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/classes/com/hzit/controller/LoginController.class" afterPath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/classes/com/hzit/controller/LoginController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_mapper-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_mapper-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_pojo-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_pojo-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_service-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_service-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_util-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/carSale_Web/target/carSale_Web/WEB-INF/lib/carSale_util-1.0-SNAPSHOT.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/target/classes/com/hzit/controller/LoginController.class" afterPath="$PROJECT_DIR$/carSale_Web/target/classes/com/hzit/controller/LoginController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/carSale_Web_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/carSale_Web_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_3_7_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_3_7_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_ecs_4_11_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_ecs_4_11_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20170516.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20170516.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale.iml" afterPath="$PROJECT_DIR$/carSale.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/carSale_Web.iml" afterPath="$PROJECT_DIR$/carSale_Web/carSale_Web.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_Web/src/main/java/com/hzit/controller/LoginController.java" afterPath="$PROJECT_DIR$/carSale_Web/src/main/java/com/hzit/controller/LoginController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_mapper/carSale_mapper.iml" afterPath="$PROJECT_DIR$/carSale_mapper/carSale_mapper.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_pojo/carSale_pojo.iml" afterPath="$PROJECT_DIR$/carSale_pojo/carSale_pojo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_service/carSale_service.iml" afterPath="$PROJECT_DIR$/carSale_service/carSale_service.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_util/carSale_util.iml" afterPath="$PROJECT_DIR$/carSale_util/carSale_util.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_3_2_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_3_7_0.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/carSale_util/src/main/java/com/hzit/util/SendMsg.java" afterPath="$PROJECT_DIR$/carSale_util/src/main/java/com/hzit/util/SendMsg.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -49,7 +32,7 @@
       <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/carSale_Web/src/main/java/com/hzit/controller/LoginController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
+            <state relative-caret-position="50">
               <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -696,12 +679,20 @@
       <workItem from="1568166473620" duration="28542000" />
       <workItem from="1568249234049" duration="5011000" />
       <workItem from="1568594192366" duration="919000" />
-      <workItem from="1568630458679" duration="5376000" />
+      <workItem from="1568630458679" duration="5523000" />
     </task>
+    <task id="LOCAL-00001" summary="sendMessage">
+      <created>1568644584276</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1568644584277</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39848000" />
+    <option name="totallyTimeSpent" value="39995000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -753,6 +744,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="sendMessage" />
+    <option name="LAST_COMMIT_MESSAGE" value="sendMessage" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1145,7 +1140,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/carSale_Web/src/main/java/com/hzit/controller/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
+        <state relative-caret-position="50">
           <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
