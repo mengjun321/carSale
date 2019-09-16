@@ -7,7 +7,7 @@ import com.hzit.entity.Employee;
 import com.hzit.service.IAdminlogService;
 import com.hzit.service.ICompanyService;
 import com.hzit.service.IEmployeeService;
-import com.hzit.util.PhoneMessageUtil;
+import com.hzit.util.SendMsg;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class LoginController {
     private ICompanyService companyService;
     @Autowired
     private IAdminlogService adminlogService;
-    PhoneMessageUtil phoneMessageUtil = new PhoneMessageUtil();
+    SendMsg sendMsg = new SendMsg();
     private Map<String,Object> resultMap = new HashMap<>();
 
     @RequestMapping("/goMain.action")
@@ -149,20 +149,20 @@ public class LoginController {
      * @author: Altman
      * @date: 2018-05-03 23:17
      **/
-    @RequestMapping("/sendPhoneMesseger")
+    @RequestMapping("/sendPhoneMesseger.action")
     @ResponseBody
     public Map<String, Object> sendPhoneMesseger(String empPhoneNumber){
-        logger.debug("开始--发送手机短信的方法");
+//        logger.debug("开始--发送手机短信的方法");
 
-        String authcode = phoneMessageUtil.genRandomNum(4);
-        logger.debug("手机验证码,生成验证码:"+authcode);
+        String authcode = sendMsg.genRandomNum(4);
+//        logger.debug("手机验证码,生成验证码:"+authcode);
 
-        if(phoneMessageUtil.sandMassage(authcode,empPhoneNumber)){
-            logger.debug("验证码发送成功,发送号码:"+empPhoneNumber);
+        if(sendMsg.sandMassage(authcode,empPhoneNumber)){
+//            logger.debug("验证码发送成功,发送号码:"+empPhoneNumber);
             resultMap.put("resultRegister",authcode);
         }else{
-            logger.debug("验证码发送失败,发送号码:"+empPhoneNumber);
-            resultMap.put("resultRegister","1234");
+//            logger.debug("验证码发送失败,发送号码:"+empPhoneNumber);
+            resultMap.put("resultRegister",authcode);
         }
 
         logger.debug("结束--发送手机短信的方法");
