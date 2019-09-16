@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="carSale_Web:war">
+    <output-path>$PROJECT_DIR$/carSale_Web/target</output-path>
+    <root id="archive" name="carSale_Web.war">
+      <element id="artifact" artifact-name="carSale_Web:war exploded" />
+    </root>
+  </artifact>
+</component>

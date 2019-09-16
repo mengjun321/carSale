@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzit.dao.SaleMapper">
+    <!-- Sale的resultMap,column是给数据库列起的别名,它对应property类的属性-->
+    <resultMap id="result_Sale_Map" type="com.hzit.entity.Sale">
+        <id column="saleId" jdbcType="INTEGER" property="saleId" />
+        <result column="empId" jdbcType="INTEGER" property="empId" />
+        <result column="companyId" jdbcType="INTEGER" property="companyId" />
+        <result column="saleTime" jdbcType="TIMESTAMP" property="saleTime" />
+        <result column="saleType" jdbcType="VARCHAR" property="saleType" />
+        <result column="customerId" jdbcType="INTEGER" property="customerId" />
+        <result column="saleTotalPrice" jdbcType="DECIMAL" property="saleTotalPrice" />
+        <result column="saleNum" jdbcType="INTEGER" property="saleNum" />
+        <result column="saleCurPrice" jdbcType="DECIMAL" property="saleCurPrice" />
+        <result column="carId" jdbcType="INTEGER" property="carId" />
+    </resultMap>
+
+	   <!-- Assist用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="Assist">
+        <where>
+            <foreach collection="require" item="req" separator=" ">
+                ${req.require} 
+                <if test="req.value != null"> #{req.value}</if> 
+                <if test="req.values != null">
+                    <foreach collection="req.values" item="val" separator=","> 
+                        #{val} 
+                    </foreach> 
+                </if> 
+                <if test="req.suffix != null"> ${req.suffix}</if> 
+            </foreach>
+        </where>
+    </sql>
+
+	   <!-- updateAssist用于更新数据的使用它拓展自Assist,用于辅助工具类setRequires设置的条件,${req.require}表示列名,#{req.value}表示值它是防SQL注入的 -->
+    <sql id="updateAssist">
+        <where>
+            <foreach collection="assist.require" item="req" separator=" ">
+                ${req.require} 
+                <if test="req.value != null"> #{req.value}</if> 
+                <if test="req.values != null">
+                    <foreach collection="req.values" item="val" separator=","> 
+                        #{val} 
+                    </foreach> 
+                </if> 
+                <if test="req.suffix != null"> ${req.suffix}</if> 
+            </foreach>
+        </where>
+    </sql>
+
+    <!-- 数据库中表名为:sale的列名,as前是数据库的列明,as后是列的别名用于映射成实体类中的属性,需要注意的是别名必须与resultMap中的column别名一致 -->
+    <sql id="sale_Column">
+        sale.saleId as saleId
+        ,sale.empId as empId
+        ,sale.companyId as companyId
+        ,sale.saleTime as saleTime
+        ,sale.saleType as saleType
+        ,sale.customerId as customerId
+        ,sale.saleTotalPrice as saleTotalPrice
+        ,sale.saleNum as saleNum
+        ,sale.saleCurPrice as saleCurPrice
+        ,sale.carId as carId
+    </sql>
+
+    <!--获得类名为:Sale对应的数据库表的数据总行数 -->
+    <select id="getSaleRowCount" parameterType="com.hzit.common.Assist" resultType="java.lang.Long">
+        select count(saleId) from sale
+        <if test="require!=null"><include refid="Assist" /></if>
+    </select>
+    <!-- 获得类名为:Sale对应数据库中表的数据集合 -->
+    <select id="selectSale" parameterType="com.hzit.common.Assist"  resultMap="result_Sale_Map">
+        select  <if test="distinct !=null">${distinct}</if>
+        <choose>
+            <when test="resultColumn!=null">${resultColumn}</when>
+            <otherwise>
+        <include refid="sale_Column" /> 
+            </otherwise>
+        </choose>
+        from sale
+        <choose>
+            <when test="rowSize ==null">
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+            </when>
+            <otherwise>
+                inner join
+                (
+                SELECT saleId as primary_key FROM sale
+                <if test="require!=null">
+                    <include refid="Assist" />
+                </if>
+                <if test="order !=null">${order}</if>
+                <choose>
+                    <when test="startRow !=null and rowSize !=null">LIMIT #{startRow,jdbcType=INTEGER},#{rowSize,jdbcType=INTEGER} </when>
+                    <when test="rowSize !=null">LIMIT #{rowSize,jdbcType=INTEGER}</when>
+                 </choose>
+                 ) as tmp
+                 on tmp.primary_key=sale.saleId
+            </otherwise>
+        </choose>
+    </select> 
+
+    <!-- 获得一个Sale对象,以参数Sale对象中不为空的属性作为条件进行查询-->
+    <select id="selectSaleByObj" parameterType="com.hzit.entity.Sale" resultMap="result_Sale_Map">
+        select 
+            <include refid="sale_Column" /> 
+        from sale
+        <where>
+            <if test="carId != null "> and sale.carId = #{carId,jdbcType=INTEGER}</if>
+            <if test="saleCurPrice != null "> and sale.saleCurPrice = #{saleCurPrice,jdbcType=DECIMAL}</if>
+            <if test="saleNum != null "> and sale.saleNum = #{saleNum,jdbcType=INTEGER}</if>
+            <if test="saleTotalPrice != null "> and sale.saleTotalPrice = #{saleTotalPrice,jdbcType=DECIMAL}</if>
+            <if test="customerId != null "> and sale.customerId = #{customerId,jdbcType=INTEGER}</if>
+            <if test="saleType != null "> and sale.saleType = #{saleType,jdbcType=VARCHAR}</if>
+            <if test="saleTime != null "> and sale.saleTime = #{saleTime,jdbcType=TIMESTAMP}</if>
+            <if test="companyId != null "> and sale.companyId = #{companyId,jdbcType=INTEGER}</if>
+            <if test="empId != null "> and sale.empId = #{empId,jdbcType=INTEGER}</if>
+            <if test="saleId != null "> and sale.saleId = #{saleId,jdbcType=INTEGER}</if>
+        </where>
+    </select> 
+
+    <!-- 通过Sale的id获得对应数据库中表的数据对象-->
+    <select id="selectSaleById" parameterType="java.lang.Integer" resultMap="result_Sale_Map">
+        select 
+            <include refid="sale_Column" /> 
+        from sale
+        where sale.saleId = #{id,jdbcType=INTEGER}
+    </select> 
+
+    <!-- 将Sale插入到对应数据库的表中,包括属性值为null的数据-->
+
+    <insert id="insertSale" parameterType="com.hzit.entity.Sale">
+        insert into sale(saleId,empId,companyId,saleTime,saleType,customerId,saleTotalPrice,saleNum,saleCurPrice,carId) 
+        values(#{saleId,jdbcType=INTEGER},#{empId,jdbcType=INTEGER},#{companyId,jdbcType=INTEGER},#{saleTime,jdbcType=TIMESTAMP},#{saleType,jdbcType=VARCHAR},#{customerId,jdbcType=INTEGER},#{saleTotalPrice,jdbcType=DECIMAL},#{saleNum,jdbcType=INTEGER},#{saleCurPrice,jdbcType=DECIMAL},#{carId,jdbcType=INTEGER})
+    </insert>
+
+    <!-- 将Sale中属性值不为null的数据,插入到对应数据库的表中-->
+    <insert id="insertNonEmptySale" parameterType="com.hzit.entity.Sale">
+        insert into sale
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="saleId != null">saleId,</if>
+            <if test="empId != null">empId,</if>
+            <if test="companyId != null">companyId,</if>
+            <if test="saleTime != null">saleTime,</if>
+            <if test="saleType != null">saleType,</if>
+            <if test="customerId != null">customerId,</if>
+            <if test="saleTotalPrice != null">saleTotalPrice,</if>
+            <if test="saleNum != null">saleNum,</if>
+            <if test="saleCurPrice != null">saleCurPrice,</if>
+            <if test="carId != null">carId,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="saleId != null"> #{saleId,jdbcType=INTEGER},</if>
+            <if test="empId != null"> #{empId,jdbcType=INTEGER},</if>
+            <if test="companyId != null"> #{companyId,jdbcType=INTEGER},</if>
+            <if test="saleTime != null"> #{saleTime,jdbcType=TIMESTAMP},</if>
+            <if test="saleType != null"> #{saleType,jdbcType=VARCHAR},</if>
+            <if test="customerId != null"> #{customerId,jdbcType=INTEGER},</if>
+            <if test="saleTotalPrice != null"> #{saleTotalPrice,jdbcType=DECIMAL},</if>
+            <if test="saleNum != null"> #{saleNum,jdbcType=INTEGER},</if>
+            <if test="saleCurPrice != null"> #{saleCurPrice,jdbcType=DECIMAL},</if>
+            <if test="carId != null"> #{carId,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+
+    <!-- 将Sale批量插入到对应数据库的表中-->
+    <insert id="insertSaleByBatch" parameterType="ArrayList">
+        insert into sale(saleId,empId,companyId,saleTime,saleType,customerId,saleTotalPrice,saleNum,saleCurPrice,carId) values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.saleId,jdbcType=INTEGER},#{item.empId,jdbcType=INTEGER},#{item.companyId,jdbcType=INTEGER},#{item.saleTime,jdbcType=TIMESTAMP},#{item.saleType,jdbcType=VARCHAR},#{item.customerId,jdbcType=INTEGER},#{item.saleTotalPrice,jdbcType=DECIMAL},#{item.saleNum,jdbcType=INTEGER},#{item.saleCurPrice,jdbcType=DECIMAL},#{item.carId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <!-- 通过Sale的id将数据库表中对应的数据删除-->
+    <delete id="deleteSaleById" parameterType="java.lang.Integer">
+        delete from sale
+        where saleId = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <!-- 通过辅助工具Assist中的条件将Sale对应的数据库表的数据删除-->
+    <delete id="deleteSale" parameterType="com.hzit.common.Assist">
+        delete from sale
+        <if test="require!=null"><include refid="Assist" /></if>
+    </delete>
+
+    <!-- 通过Sale的id将Sale的数据更新到数据库中对应的表,包括值null的数据-->
+    <update id="updateSaleById" parameterType="com.hzit.entity.Sale">
+        update sale set
+            empId=#{empId,jdbcType=INTEGER}
+            ,companyId=#{companyId,jdbcType=INTEGER}
+            ,saleTime=#{saleTime,jdbcType=TIMESTAMP}
+            ,saleType=#{saleType,jdbcType=VARCHAR}
+            ,customerId=#{customerId,jdbcType=INTEGER}
+            ,saleTotalPrice=#{saleTotalPrice,jdbcType=DECIMAL}
+            ,saleNum=#{saleNum,jdbcType=INTEGER}
+            ,saleCurPrice=#{saleCurPrice,jdbcType=DECIMAL}
+            ,carId=#{carId,jdbcType=INTEGER}
+        where saleId=#{saleId,jdbcType=INTEGER}
+    </update>
+
+    <!-- 通过Sale的id将Sale中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptySaleById" parameterType="com.hzit.entity.Sale">
+        update sale
+        <set>
+            <if test="empId != null">
+                empId=#{empId,jdbcType=INTEGER},
+            </if>
+            <if test="companyId != null">
+                companyId=#{companyId,jdbcType=INTEGER},
+            </if>
+            <if test="saleTime != null">
+                saleTime=#{saleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="saleType != null">
+                saleType=#{saleType,jdbcType=VARCHAR},
+            </if>
+            <if test="customerId != null">
+                customerId=#{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="saleTotalPrice != null">
+                saleTotalPrice=#{saleTotalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="saleNum != null">
+                saleNum=#{saleNum,jdbcType=INTEGER},
+            </if>
+            <if test="saleCurPrice != null">
+                saleCurPrice=#{saleCurPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="carId != null">
+                carId=#{carId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where saleId=#{saleId,jdbcType=INTEGER}
+    </update>
+
+    <!-- 通过辅助工具Assist中的条件将Sale中的数据更新到数据库对应的表中,包括值为null的数据-->
+    <update id="updateSale" parameterType="map">
+        update sale
+        <set>
+                saleId=#{enti.saleId,jdbcType=INTEGER},
+                empId=#{enti.empId,jdbcType=INTEGER},
+                companyId=#{enti.companyId,jdbcType=INTEGER},
+                saleTime=#{enti.saleTime,jdbcType=TIMESTAMP},
+                saleType=#{enti.saleType,jdbcType=VARCHAR},
+                customerId=#{enti.customerId,jdbcType=INTEGER},
+                saleTotalPrice=#{enti.saleTotalPrice,jdbcType=DECIMAL},
+                saleNum=#{enti.saleNum,jdbcType=INTEGER},
+                saleCurPrice=#{enti.saleCurPrice,jdbcType=DECIMAL},
+                carId=#{enti.carId,jdbcType=INTEGER},
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+    <!-- 通过辅助工具Assist中的条件将Sale中属性值不为null的数据更新到数据库对应的表中-->
+    <update id="updateNonEmptySale" parameterType="map">
+        update sale
+        <set>
+            <if test="enti.saleId != null">
+                saleId=#{enti.saleId,jdbcType=INTEGER},
+            </if>
+            <if test="enti.empId != null">
+                empId=#{enti.empId,jdbcType=INTEGER},
+            </if>
+            <if test="enti.companyId != null">
+                companyId=#{enti.companyId,jdbcType=INTEGER},
+            </if>
+            <if test="enti.saleTime != null">
+                saleTime=#{enti.saleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="enti.saleType != null">
+                saleType=#{enti.saleType,jdbcType=VARCHAR},
+            </if>
+            <if test="enti.customerId != null">
+                customerId=#{enti.customerId,jdbcType=INTEGER},
+            </if>
+            <if test="enti.saleTotalPrice != null">
+                saleTotalPrice=#{enti.saleTotalPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="enti.saleNum != null">
+                saleNum=#{enti.saleNum,jdbcType=INTEGER},
+            </if>
+            <if test="enti.saleCurPrice != null">
+                saleCurPrice=#{enti.saleCurPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="enti.carId != null">
+                carId=#{enti.carId,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="assist.require!=null"><include refid="updateAssist" /></if>
+    </update>
+
+</mapper>
